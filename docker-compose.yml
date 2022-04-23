@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+
+    service1:
+        build: .
+        image: 19133064/php:v1  # goes to your repository on Docker Hub
+    php-env:
+        build: .
+        volumes:
+            - ./src:/var/www/html/
+        ports:
+            - 9000:80
+    mysql_db:
+        image: mysql:latest
+        command: --default-authentication-plugin=mysql_native_password
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: always
+        ports:
+            - 9001:80
+        environment:
+            - PMA_ARBITRARY=1
+    
+    
+        
